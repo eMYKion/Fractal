@@ -59,7 +59,7 @@
       
       <div id="options">
         <ul>
-          <li>Iterations <input id="iter"  type="text"></input> </li>
+          <li>Iterations(max 13) <input id="iter"  type="text"></input> </li>
           <li>Angle(rad) <input id="theta" type="text" value="1.5707963267948966"></input> </li>
         </ul>
       </div>
@@ -72,7 +72,7 @@
 
       <div id="footer">
         <ul>
-          <li>Github | <a href="http://emykion.github.io/">eMYKion</a> </li>
+          <li>Github | <a href="http://www.github.com/eMYKion/">eMYKion</a> </li>
           <li>Idea Lab | <a href="http://idea-lab.github.io/">AB-IdeaLab</a> </li>
         </ul>
       </div>
@@ -149,7 +149,7 @@
         var iterations = document.getElementById("iter").value;
         var theta = document.getElementById("theta").value;
         console.log(iterations, theta);
-        steps = generateSteps(iterations);
+        steps = generateSteps(Math.min(iterations, 13));
         console.log(steps);
         drawfractal(steps,  "#000000", parseFloat(theta));
       }
