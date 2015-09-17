@@ -12,41 +12,32 @@
       #canvas{
         border:1px solid #dddddd;
         
-        position: relative;
-        
-        left: 50%;
-        margin-left: -500px;
-        
-        
-        
-        
-        
+
       }
       
     
       #options ul{
-        
         list-style-type: none;
       }
       
       #options ul li{
         display: inline;
-        margin:150px;
       }
       
-      #footer{
-        position:relative;
-        top: 10px;
-      }
+      
       
       #footer ul{
         list-style-type: none;
-        position:relative;
       }
       
       #footer ul li{
         display: inline;
-        margin:220px;
+        
+      }
+      
+      .flexdiv{
+        display: flex;
+        justify-content: space-around;
       }
       
     </style>
@@ -57,32 +48,31 @@
     
       
       
-      <div id="options">
-        <ul>
-          <li>Iterations(max 13) <input id="iter"  type="text"></input> </li>
-          <li>Angle(rad) <input id="theta" type="text" value="1.5707963267948966"></input> </li>
-        </ul>
-      </div>
+    <div id="options">
+      <ul class="flexdiv">
+        <li>Iterations <input id="iter"  type="text" value="10"></li>
+        <li>Step Length <input id="steplen"  type="text" value = "2"></li>
+        <li>Angle(rad) <input id="theta" type="text" value="1.570796"></li>
+      </ul>
+    </div>
 
 
+    <div class="flexdiv">
+      <canvas id="canvas" width="1000" height="1000">Oops, your browser does not support canvas!</canvas>
+    </div>
 
-      <canvas id="canvas" width="1000" height="500">Oops, your browser does not support canvas!</canvas>
 
-
-
-      <div id="footer">
-        <ul>
-          <li>Github | <a href="http://www.github.com/eMYKion/">eMYKion</a> </li>
-          <li>Idea Lab | <a href="http://idea-lab.github.io/">AB-IdeaLab</a> </li>
-        </ul>
-      </div>
+    <div id="footer">
+      <ul class="flexdiv">
+        <li>Github | <a href="http://www.github.com/eMYKion/">eMYKion</a> </li>
+        <li>Idea Lab | <a href="http://idea-lab.github.io/">AB-IdeaLab</a> </li>
+      </ul>
+    </div>
       
     
     <script>
     
       canvas = document.getElementById("canvas");
-      //canvas.width = 1000;
-      //canvas.height = 500;
       ctx = canvas.getContext("2d");
       
       function clearCanvas(){
@@ -93,16 +83,17 @@
       
       
       function generateSteps(iterations){
-        
         var temp = [1];
         
-        for(var i=0; i<iterations;i+=1){
-          var rev = temp;
+        
+        
+        var rev;
+        for(var i=0; i<iterations; i+=1){
+          rev = temp;
           temp = temp.concat([1]);
           for(var j=0, n =rev.length;j<n;j+=1){
             temp = temp.concat([(rev[n-1-j]+1)%2]);
           }
-          
           
         }
         return temp;
@@ -110,18 +101,21 @@
       
       
       
-      function drawfractal(steps, color, dTheta){
+      
+      function drawfractal(steps, steplen,  color, dTheta){
+        var x;
+        var y;  
+        x = Math.floor(canvas.width/2,1)+0.5;
+        y = Math.floor(canvas.height/2,1)+0.5;
         
-        var pathlen = 5;
         var theta = 0.0;
         ctx.strokeStyle = color;
         
         ctx.beginPath();
-        var x = Math.floor(canvas.width/2,1)+0.5;
-        var y = Math.floor(canvas.height/2,1)+0.5;
+        
         ctx.moveTo(x,y);
-        x+=pathlen*Math.cos(theta);
-        y+=pathlen*Math.sin(theta);
+        x+=steplen*Math.cos(theta);
+        y+=steplen*Math.sin(theta);
         ctx.lineTo(x,y);
         ctx.stroke();
         for(var i = 0,n=steps.length;i<n;i+=1){
@@ -131,8 +125,8 @@
           }else{
             theta+=dTheta;
           }
-          x+=pathlen*Math.cos(theta);
-          y+=pathlen*Math.sin(theta);
+          x+=steplen*Math.cos(theta);
+          y+=steplen*Math.sin(theta);
           ctx.lineTo(x,y);
           
           
@@ -145,17 +139,19 @@
       
       function all(){
         clearCanvas();
-        
         var iterations = document.getElementById("iter").value;
         var theta = document.getElementById("theta").value;
-        console.log(iterations, theta);
-        steps = generateSteps(Math.min(iterations, 13));
-        console.log(steps);
-        drawfractal(steps,  "#000000", parseFloat(theta));
+        var steplen = document.getElementById("steplen").value;
+        var steps = generateSteps(iterations);
+        drawfractal(steps,steplen,"#000000", parseFloat(theta));
+        
       }
       
-      document.getElementById("iter").addEventListener("keydown", all);
-      document.getElementById("theta").addEventListener("keydown", all);
+      
+      
+      document.getElementById("iter").addEventListener("keyup", all);
+      document.getElementById("theta").addEventListener("keyup", all);
+      document.getElementById("steplen").addEventListener("keyup", all);
       
     </script>
   </body>
