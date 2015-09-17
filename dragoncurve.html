@@ -51,7 +51,7 @@
     <div id="options">
       <ul class="flexdiv">
         <li>Iterations <input id="iter"  type="text" value="10"></li>
-        <li>Step Length <input id="steplen"  type="text" value = "2"></li>
+        <li>Step Length <input id="steplen"  type="text" value = "5"></li>
         <li>Angle(rad) <input id="theta" type="text" value="1.570796"></li>
       </ul>
     </div>
@@ -152,6 +152,8 @@
       document.getElementById("iter").addEventListener("keyup", all);
       document.getElementById("theta").addEventListener("keyup", all);
       document.getElementById("steplen").addEventListener("keyup", all);
+      
+      all();
       
     </script>
   </body>
