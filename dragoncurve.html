@@ -146,7 +146,7 @@
       function all(){
         clearCanvas();
         
-        var iterations = document.getElementById("iter").value;
+        var iterations = (document.getElementById("iter").value)%15;
         var theta = document.getElementById("theta").value;
         console.log(iterations, theta);
         steps = generateSteps(iterations);
