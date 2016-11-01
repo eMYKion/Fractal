@@ -50,7 +50,7 @@
       
     <div id="options">
       <ul class="flexdiv">
-        <li>Iterations <input id="iter"  type="text" value="10"> (% 11)</li>
+        <li>Iterations <input id="iter"  type="text" value="10"> (min 11)</li>
         <li>Step Length <input id="steplen"  type="text" value = "5"></li>
         <li>Angle(rad) <input id="theta" type="text" value="1.570796"></li>
       </ul>
@@ -139,7 +139,7 @@
       
       function all(){
         clearCanvas();
-        var iterations = document.getElementById("iter").value % 11;
+        var iterations = Math.min(document.getElementById("iter").value, 11);
         if(iterations>15){iterations=15}
         var theta = document.getElementById("theta").value;
         var steplen = document.getElementById("steplen").value;
