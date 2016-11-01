@@ -59,7 +59,7 @@
       
       <div id="options">
         <ul>
-          <li>Iterations <input id="iter"  type="text"></input> </li>
+          <li>Iterations <input id="iter"  type="text"></input> (% 11)</li>
           <li>Angle(rad) <input id="theta" type="text" value="1.5707963267948966"></input> </li>
         </ul>
       </div>
@@ -146,7 +146,7 @@
       function all(){
         clearCanvas();
         
-        var iterations = (document.getElementById("iter").value)%15;
+        var iterations = (document.getElementById("iter").value)%11;
         var theta = document.getElementById("theta").value;
         console.log(iterations, theta);
         steps = generateSteps(iterations);
